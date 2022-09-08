@@ -1,0 +1,110 @@
+<html>
+<head>
+
+</head>
+  <style>
+    /*@text*/
+        * {
+          padding: 0;
+          margin: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          background-color: #111;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+        .waviy {
+          position: relative;
+        }
+        .waviy span {
+          position: relative;
+          display: inline-block;
+          font-size: 40px;
+          color: #EF6032;
+          text-transform: uppercase;
+          animation: flip 2s infinite;
+          animation-delay: calc(.2s * var(--i))
+        }
+        @keyframes flip {
+          0%,80% {
+            transform: rotateY(360deg) 
+          }
+        }
+        
+    /*logo*/
+    .coin img{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        animation: animate 1s linear infinite;
+        perspective: 800px;
+        margin: 0 0 0 20px;
+    }
+    @keyframes animate {
+        0%{
+           transform: rotateY(0deg);
+        }
+        100%{
+            transform: rotateY(360deg);
+        }
+    }
+
+  </style>
+  <body>
+    <div class="coin" id="ElementYouWantToConvertToPdf">
+    <img src="C:\Users\Hp\Downloads\BeYyZWHJ_400x400-removebg-preview.png">
+    <b>
+       <div class="waviy">
+         <span style="--i:1">M</span>
+         <span style="--i:2">i</span>
+         <span style="--i:3">t</span>
+         <span style="--i:4">r</span>
+         <span style="--i:5">s</span>
+         <span style="--i:6">e</span>
+         <span style="--i:7">w</span>
+         <span style="--i:8">a</span>
+       </div>
+    </b>
+    </div>
+
+    <button onclick="getGenratePdf()">GEN</button>
+    <script src="assets/js/pdfconvert/jspdf.js"></script>
+<script src="assets/js/pdfconvert/jspdf.plugin.from_html.js"></script>
+<script src="assets/js/pdfconvert/jspdf.plugin.split_text_to_size.js"></script>
+<script src="assets/js/pdfconvert/jspdf.plugin.standard_fonts_metrics.js">  </script>
+<script src="assets/js/pdfconvert/jspdf.plugin.addhtml.js"></script>
+<script src="assets/js/pdfconvert/filesaver.js"></script>
+<script src="assets/js/pdfconvert/jspdf.plugin.cell.js"></script>
+<script src="assets/js/pdfconvert/html2canvas.js"></script>
+<script src="assets/js/pdfconvert/jspdf.plugin.addimage.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
+    <script type="text/javascript">
+     async function getGenratePdf(){
+        var data = document.getElementById('ElementYouWantToConvertToPdf');
+            html2canvas(data).then(canvas => {
+              // Few necessary setting options
+              var imgWidth = 208;
+              var imgHeight = canvas.height * imgWidth / canvas.width;
+              alert(imgHeight)
+              const contentDataURL = canvas.toDataURL('image/png')
+              let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+              var position = 0;
+              pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+              //  pdf.save('new-file.pdf');
+              window.open(pdf.output('bloburl', { filename: 'new-file.pdf' }), '_blank');
+            });
+      }
+
+
+
+    </script>
+  </body>
+</html>
